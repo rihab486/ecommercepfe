@@ -1,0 +1,28 @@
+<div class="">
+    <section id="cart_items">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1><strong>Payer Lors De Livraison</strong></h1><br>
+                    <div class="total_area">
+                        <ul>
+                            <li>Prix Totale Panier <span> {{total}}D</span></li>
+                            <li>Eco Tax <span>Eco =(1 +30%) =1.03D</span></li>
+                            <li *ngIf="total > 300">Frais de Livraison <span>Free</span></li>
+                            <li *ngIf="total <= 300">Frais de Livraison <span>8D</span></li>
+                            <li *ngIf="total > 300">Totales Final <span>{{total + 1.03 + 0}} D</span></li>
+                            <li *ngIf="total <= 300">Totales Final <span>{{total + 1.03 + 8}} D</span></li>
+
+                        </ul>
+                        <a class="btn btn-default check_out" style="background-color: rgb(250, 148, 52);">Imprimer</a>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+</div>

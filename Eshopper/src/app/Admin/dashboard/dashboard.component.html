@@ -1,0 +1,137 @@
+<div class="">
+    <div class="col-sm-3" style="margin-top: 15px;">
+        <div class="search_box pull-right">
+            <input type="text" name="name" [(ngModel)]="name" (click)="search()" placeholder="Rechercher" />
+        </div>
+    </div>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#slider-carousel" style="background-color: aqua;" data-slide-to="0"
+                                class="active"></li>
+                            <li data-target="#slider-carousel" style="background-color: rgb(148, 149, 216);"
+                                data-slide-to="1" class="active"></li>
+                            <li data-target="#slider-carousel" style="background-color: rgb(235, 177, 206);"
+                                data-slide-to="2 " class="active"></li>
+                        </ol>
+
+                        <div class="carousel-inner">
+                            <div class="item active" href="ee">
+                                <div class="col-sm-6">
+                                    <h1><span>E</span>-SHOPPER</h1>
+                                    <h2>Plateforme E-Commerce</h2>
+                                    <p>Bienvenue dans notre boutique de vente en ligne le moins chér et plus flexible..
+                                        Elle vend également des vêtements dédiés à tout le monde (homme, femme et
+                                        enfant).. Vous y trouverez également des vêtements de sport </p>
+                                    <button type="button" class="btn btn-default get">obtenez le maintenant</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <img src="assets/images/home/girl3.jpg" class="girl img-responsive" alt="" />
+                                    <img src="assets/images/home/pricing.png" class="pricing" alt="" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                        <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!--/slider-->
+
+
+    <section>
+        <div class="container">
+            <div class="row" style="padding-bottom: 40px;" *ngIf="!showSearch">
+                <app-products></app-products>
+            </div>
+
+            <div class="recommended_items" *ngFor="let orde of tags;">
+                <h2 class="title text-center"> {{orde.name}}</h2>
+
+                <div class="">
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="col-sm-3" *ngFor="let x of orde.products;">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="{{x.url}}" />
+                                            <h2>{{x.price}}dt</h2>
+                                            <p>{{x.name}}</p>
+                                            <a href="#" class="btn btn-default add-to-cart"><i
+                                                    class="fa fa-shopping-cart"></i>Ajouter Au Panier</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="recommended_items">
+            <h2 class="title text-center"> Galeries Pour Tous Les Produits</h2>
+            <div id="similar-product" class="slider" data-ride="carousel">
+
+
+                <div class="slide-track" id="slide-wrapper">
+                    <div class="slide" *ngFor="let gal of galery ;">
+                        <a><img class="thumbnail active" src={{gal.url}} style="width: 100px; height: 100px;"></a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div *ngIf="showSearch">
+            <div class="col-sm-4" *ngFor="let order of productOrders; let i = index ">
+                <div class="product-image-wrapper">
+                    <div class="single-products">
+                        <div class="productinfo text-center">
+                            <img src="{{order.product.url}}" />
+                            <h2>{{order.product.price}}dt</h2>
+                            <p>{{order.product.name}}</p>
+                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
+                                cart</a>
+                        </div>
+                        <div class="product-overlay">
+                            <div class="overlay-content">
+
+                                <h2 (click)="sngleProduct(order.product.id)">
+                                    {{order.product.price}}dt</h2>
+                                <p>
+                                    {{order.product.name}}</p>
+                                <a class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
+                                    cart</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+</div>

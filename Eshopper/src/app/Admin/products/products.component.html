@@ -1,0 +1,96 @@
+<div class="header-bottom">
+    <!--header-bottom-->
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="left-sidebar">
+                <h2>Categories</h2>
+                <div class="panel-group category-products" id="accordian">
+                    <!--category-productsr-->
+                    <div class="panel panel-default" *ngFor="let cat of categories">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+                                    <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                    {{cat.name}}
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="sportswear" class="panel-collapse collapse" *ngFor="let x of cat.souscategories">
+                            <div class="panel-body">
+                                <ul>
+                                    <li><a (click)="displayscategory(x.id)">{{x.name}}</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="brands_products">
+                    <!--brands_products-->
+                    <h2>Marque</h2>
+                    <div class="brands-name">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href=""> <span class="pull-right">(50)</span>Adidas</a></li>
+                            <li><a href=""> <span class="pull-right">(56)</span>Nike</a></li>
+                            <li><a href=""> <span class="pull-right">(27)</span>Kallanji</a></li>
+                            <li><a href=""> <span class="pull-right">(32)</span>Puma</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--/brands_products-->
+                <div class="shipping text-center">
+                    <!--shipping-->
+                    <img src="assets/images/home/shipping.jpg" alt="" />
+                </div>
+                <!--/shipping-->
+            </div>
+        </div>
+        <div class="col-sm-9 padding-right">
+            <div class="features_items">
+                <!--features_items-->
+                <h2 class="title text-center">ARTICLES CARACTÉRISTIQUES</h2>
+                <div class="col-sm-4" *ngFor="let order of productOrders; let i = index ">
+                    <div class="product-image-wrapper">
+                        <div class="single-products">
+                            <div class="productinfo text-center">
+                                <img src="{{order.product.url}}" />
+                                <h2>{{order.product.price}}dt</h2>
+                                <p>{{order.product.name}}</p>
+                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ajout
+                                    Au Panier</a>
+                            </div>
+                            <div class="product-overlay">
+                                <div class="overlay-content">
+                                    <H2>{{order.product.marque}}</H2>
+                                    <h2 [swal]="['Vers Détails Produits!', 'notre produit en détail']"
+                                        class="btn btn-link" (click)="sngleProduct(order.product.id)">
+                                        {{order.product.price}}dt</h2>
+                                    <p style="color: black;">
+                                        {{order.product.name}}</p>
+                                    <a class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ajout Au
+                                        Panier</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <router-outlet></router-outlet>
+            </div>
+            <ul class="pagination">
+                <li class="active"><a href="">1</a></li>
+                <li><a href="">2</a></li>
+                <li><a href="">3</a></li>
+                <li><a href="">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

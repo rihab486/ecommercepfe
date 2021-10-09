@@ -1,0 +1,133 @@
+<div class="info">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="blog-post-area" *ngFor="let order of productOrders let i = index">
+                        <h2 class="title text-center">DERNIERES DE NOTRE BLOG</h2>
+                        <div class="single-blog-post">
+                            <h3>{{order.product.name}}</h3>
+                            <div class="post-meta">
+                                <ul>
+                                    <li><i class="fa fa-clock-o"></i> {{order.product.datecmd | date }}</li>
+                                    <li><i class="fa fa-calendar"></i> {{order.product.datecmd | date }}</li>
+                                </ul>
+                                <span>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                </span>
+                            </div>
+                            <a href="">
+                                <img src={{order.product.url}} alt="">
+                            </a>
+                            <p>{{order.product.description}}<br>
+                                <br>
+                            <p>
+                                Tee Shirt est techniques , haut de gamme et à petit prix pour pratiquer tous les sports,
+                                que ce soit du CrossFit, du running, du football ou d’autres sports collectifs.
+
+                            </p><br>
+                            <h1><strong>Conseils</strong> </h1>
+                            <p>
+                                Le sport est un facteur important d'évolution du vêtement occidental, nombre de
+                                vêtements s'étant simplifiés afin d'être adaptés à une pratique sportive. C'est
+                                notamment le cas de la veste.
+                            </p>
+                            La pratique sportive a apporté les notions de confort et de mixité au vêtement. Mixité qui
+                            s'exprime autant dans le port du pantalon chez la femme que dans l'adoption de la couleur
+                            par les hommes.
+                            <p><br>
+                                Le sport est aussi un moteur d'innovations techniques en termes de textile ou de forme
+                                puisque le vêtement est utilisé dans des contextes extrêmes : mouvements, conditions
+                                extérieures, frottements, etc. Des matériaux high tech sont ainsi développés, apportant
+                                des qualités techniques spécifiques, à l'exemple des matières
+                                qui permettent l'évaporation de la transpiration.
+                            <p>
+                            </p>
+
+                        </div>
+                    </div>
+                    <!--/blog-post-area-->
+
+                    <div class="rating-area">
+                        <ul class="ratings">
+                            <li class="rate-this">Évaluez cet article :</li>
+                            <li>
+                                <i class="fa fa-star color"></i>
+                                <i class="fa fa-star color"></i>
+                                <i class="fa fa-star color"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </li>
+                            <li class="color">(6 votes)</li>
+                        </ul>
+                    </div>
+                    <!--/rating-area-->
+
+                    <div class="socials-share">
+                        <a href=""><img src="assets/images/blog/socials.png" alt=""></a>
+                    </div>
+                    <!--/socials-share-->
+                    <div class="response-area">
+                        <h2>3 REPONSES</h2>
+                        <ul class="media-list" *ngFor="let item of comments">
+                            <li class="media">
+                                <a class="pull-left" href="#">
+                                    <img class="media-object" src="assets/images/blog/man-two.jpg" alt="">
+                                </a>
+                                <div class="media-body">
+                                    <ul class="sinlge-post-meta">
+                                        <li><i class="fa fa-user"></i>{{ item.addedBy}}</li>
+                                        <li><i class="fa fa-clock-o"></i> {{item.addedAt |date: ' hh:mm:ss' }}</li>
+                                        <li><i class="fa fa-calendar"></i> {{item.addedAt |date: 'yyyy-MM-dd ' }}</li>
+                                    </ul>
+                                    <p>{{item.message}}</p><br>
+
+                                    <a type="button" class="btn btn-primary" (click)="replay(item.id)"><i
+                                            class="fa fa-reply"></i>Repondre</a>
+
+                                </div>
+                            </li>
+
+
+                        </ul>
+
+                        <li class="media second-media" *ngFor="let items of replaycomments">
+                            <a class="pull-left">
+                                <img class="media-object" src="assets/images/blog/man-three.jpg" alt="">
+                            </a>
+                            <div class="media-body">
+                                <ul class="sinlge-post-meta">
+                                        <li><i class="fa fa-user"></i>{{ items.addedBy}}</li>
+
+                                    <li><i class="fa fa-clock-o"></i> {{items.addedAt |date: ' hh:mm:ss' }}</li>
+                                    <li><i class="fa fa-calendar"></i> {{items.addedAt |date: 'yyyy-MM-dd ' }}</li>
+                                </ul>
+                                <p>{{items.messageReplay}}</p><br>
+                            </div>
+
+                        </li>
+
+                    </div>
+                    <!--/Response-area-->
+                    <div class="replay-box">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h2>Laisser une rediffusion</h2>
+                                <div class="text-area">
+                                    <textarea placeholder="Envoyer votre Commentaire " name="message"
+                                        [(ngModel)]="comment.message" rows="11"></textarea>
+                                    <a class="btn btn-primary" (click)="addComment(idProduct)">Commenter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>

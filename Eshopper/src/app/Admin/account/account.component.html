@@ -1,0 +1,143 @@
+<div class="info">
+	<section>
+		<div class="sidebar">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4" style="background-color:#beb4b2;">
+						<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+							<div class="image">
+								<img style="width: 30px; " src="assets/rihab.jpg" class="img-circle elevation-10"
+									alt="User Image">
+							</div>
+							<div class="info" *ngIf="currentUser;" style="color: black;">
+								<a class="d-block"> <strong>PROFILE :</strong>{{ currentUser.username }}</a>
+
+								<br>
+								<p>
+									<strong>EMAIL:</strong>
+									{{ currentUser.email }}
+								</p>
+								<strong>ROLES:</strong>
+								<ul>
+									<li *ngFor="let role of currentUser.roles">
+										{{ role }}
+									</li>
+								</ul>
+							</div>
+						</div>
+
+						<button style="color: rgb(7, 7, 7); background-color: #ffb26b;" mat-button type="button"
+							(click)="addCategory(currentUser.id)" type="button" class="btn btn-outline-primary btn-sm">
+							Ajout Categorie </button>
+						<br><br>
+						<button style="color: rgb(7, 7, 7); background-color: #ffb26b;" mat-button type="button"
+							(click)="addTag()" type="button" class="btn btn-outline-primary btn-sm">
+							Ajout Tag
+						</button>
+
+
+
+						<br><br>
+
+						<ul class="list-group" id="accordian" *ngFor="let cat of categories; let i =index ;">
+							<div class="panel panel-default">
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+
+									<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+										<span class="material-icons">
+											<mat-icon>arrow_drop_down_circle</mat-icon>
+										</span>
+										{{cat.name}}
+									</a>
+
+									<a class="material-icons" (click)="addSCategory(cat.id)">
+										<mat-icon> add_comment</mat-icon>
+									</a>
+									<a class="material-icons" type="button" (click)="editCategory(cat.id)">
+										<mat-icon> border_color</mat-icon>
+									</a>
+									<a class="material-icons" (click)="deleteCategory(cat.id)"
+										style="cursor: pointer; ">delete_sweep</a>
+								</li>
+								<div id="sportswear" *ngFor="let x of   cat.souscategories ; let i = index"
+									class="panel-collapse collapse">
+									<div class="panel-body">
+										<ul>
+											<li
+												class="list-group-item d-flex justify-content-between align-items-center">
+												<span style="cursor: pointer;"
+													[routerLink]="['/account/' + currentUser.id +'/scategories/' + x.id]"
+													routerLinkActive="router-link-active"> <a>{{x.name}}</a> </span>
+
+												<button type="button"
+													style="color: rgb(7, 7, 7); background-color: #ffb26b;"
+													class="btn btn-outline-primary btn-sm"
+													(click)="addProduct(x.id)">Add
+													product</button>
+
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</ul>
+						<button style="color: rgb(7, 7, 7); background-color:#ffb26b;" mat-button type="button"
+							(click)="logout()" type="button" class="btn btn-outline-primary btn-sm">
+							Deconnexion
+						</button>
+
+					</div>
+
+					<div class="col-lg-8">
+						<div class="card" style="margin-top: 30px;">
+							<div class="card-body">
+								<mat-accordion>
+									<mat-expansion-panel hideToggle>
+										<mat-expansion-panel-header>
+											<mat-panel-title>
+												<strong>Les Utilisateurs Site :</strong>
+											</mat-panel-title>
+											<mat-panel-description>
+												Liste Utilisateurs
+											</mat-panel-description>
+										</mat-expansion-panel-header>
+										<table class="table">
+											<thead>
+												<tr>
+												<tr style="background-color: #ffb26b;">
+													<th scope="col">Id</th>
+													<th scope="col">Nom</th>
+													<th scope="col">Email</th>
+													<th scope="col">Téléphone</th>
+													<th scope="col">Adresse</th>
+													<th scope="col">Action</th>
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr *ngFor="let use of users">
+													<td>{{use.id}}</td>
+													<td>{{use.username}}</td>
+													<td>{{use.email}}</td>
+													<td>{{use.phone}}</td>
+													<td>{{use.adresse}}</td>
+													<td><span class="material-icons" (click)="deleteuser(use.id)"
+															style="cursor: pointer; color: #e15f41;">delete_forever</span>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</mat-expansion-panel>
+								</mat-accordion>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<router-outlet></router-outlet>
+		</div>
+	</section>
+
+
+</div>

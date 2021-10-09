@@ -1,0 +1,80 @@
+<mat-card style="color: rgb(255, 102, 0); ">
+  <div class="card-header">
+    <h3 align="center">Gestion des produits</h3>
+    <mat-progress-bar mode="buffer" *ngIf="progressBar"></mat-progress-bar>
+
+    <form name="form" (ngSubmit)="e.form.valid && ajout()" #e="ngForm" novalidate>
+      <table class="table table-borderless">
+        <div class="form-group">
+          <tr>
+            <td>Image</td>
+            <td><input type="file" (change)="onFileSelected($event)" class="form-control" name="url"></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td>Name</td>
+            <td><input type="text" [(ngModel)]="product.name" class="form-control" name="name" required #name="ngModel">
+            </td>
+          </tr>
+          <div class="alert-danger" *ngIf="name.errors && e.submitted">
+            <div *ngIf="name.errors.required">Nom d produit est nécessaire</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td>description</td>
+            <td><textarea type="text" name="description" class="form-control" [(ngModel)]="product.description" required
+                #description="ngModel"></textarea></td>
+          </tr>
+          <div class="alert-danger" *ngIf="description.errors && e.submitted">
+            <div *ngIf="description.errors.required">description produit est nécessaire</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td>Prix</td>
+            <td><input type="number" [(ngModel)]="product.price" name="price" required #price="ngModel"></td>
+          </tr>
+          <div class="alert-danger" *ngIf="price.errors && e.submitted">
+            <div *ngIf="price.errors.required">prix produit est nécessaire</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td>Marque</td>
+            <td><input type="text" [(ngModel)]="product.marque" name="marque" required #marque="ngModel"></td>
+          </tr>
+          <div class="alert-danger" *ngIf="marque.errors && e.submitted">
+            <div *ngIf="marque.errors.required">marque produit est nécessaire</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td>Quantitie</td>
+            <td><input type="number" [(ngModel)]="product.quantities" name="quantities" required #quantities="ngModel">
+            </td>
+          </tr>
+          <div class="alert-danger" *ngIf="quantities.errors && e.submitted">
+            <div *ngIf="quantities.errors.required">quantities produit est nécessaire</div>
+          </div>
+        </div>
+        <!--
+       <div class="form-group">
+     <tr><td>Vérification</td>
+       <mat-radio-group  >
+        <mat-radio-button value="1" (click)="vall()">in Stock</mat-radio-button>
+        <mat-radio-button  value="2" (click)="vale()">not in stock</mat-radio-button>
+      </mat-radio-group></tr>
+      </div>
+    -->
+        <div class="form-group">
+          <tr>
+            <td colspan="2"><button class="btn btn-primary">Ajouter</button></td>
+          </tr>
+          <h2></h2>
+        </div>
+      </table>
+    </form>
+  </div>
+</mat-card>

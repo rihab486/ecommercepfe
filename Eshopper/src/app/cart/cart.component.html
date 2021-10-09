@@ -1,0 +1,128 @@
+<div class="">
+    <section id="cart_items">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ol class="breadcrumb">
+                    <li><a [routerLink]="['/Dashboarda']">Acceuil </a></li>
+                    <li [routerLink]="['/Cart']">Panier</li>
+                </ol>
+            </div>
+            <div class="table-responsive cart_info" *ngIf="cartLength>=1">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr class="cart_menu">
+                            <td class="image">Article</td>
+                            <td class="description">Description</td>
+                            <td class="price">Prix</td>
+                            <td class="price">Couleur</td>
+                            <td class="price">Taille</td>
+                            <td class="quantity">Quantitie</td>
+                            <td class="total">Totale</td>
+                            <td>Actions</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let cart of carts">
+                            <td class="cart_product">
+                                <a><img style="width: 100px ;height: 100px;" src="{{cart.url}}" alt=""></a>
+                            </td>
+                            <td class="cart_description">
+                                <p>{{cart.datecmd | date: 'yyyy-MM-dd hh:mm:ss'}} </p>
+                                <h4><a href="">{{cart.name}}</a></h4>
+                                <p>{{cart.description}}</p>
+                            </td>
+                            <td class="cart_price">
+                                <p>{{cart.price}} </p>
+                            </td>
+                            <td class="cart_couleur">
+                                <mat-form-field appearance="fill">
+                                    <mat-label style="height: 30px;"><strong> Couleur </strong></mat-label>
+                                    <mat-select (selectionChange)="selectedColor($event,cart)">
+                                        <mat-option *ngFor="let col of selectTable(cart.couleurs)" [value]="col">
+                                            {{col}}
+
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                            </td>
+                            <td class="cart_taille">
+
+                                <mat-form-field appearance="fill">
+                                    <mat-label style="height: 30px;"><strong> Taille </strong></mat-label>
+                                    <mat-select (selectionChange)="selectedValue($event,cart)">
+                                        <mat-option *ngFor="let tail of getTable(cart.tailles)" [value]="tail">
+                                            {{tail}}
+
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+
+                            <td class="cart_quantity">
+                                <div class="cart_quantity_button">
+                                    <input type="number" (change)="calculateTotal()" [(ngModel)]="cart.quantity"
+                                        [disabled]="cart.quantity <= 0 || cart.stock <=  cart.quantity" name="quantity"
+                                        value="{{cart.quantity}}" style="width: 60px;height: 30px;">
+                                </div>
+                            </td>
+
+                            <td class="cart_total">
+                                <p class="cart_total_price">{{cart.price*cart.quantity}}</p>
+                            </td>
+
+
+                            <td class="cart_delete">
+                                <a (click)="update(cart,id)">Update</a>
+                                <a class="cart_quantity_delete" (click)="deleteCart(cart.id, currentUser.id)"><i
+                                        class="fa fa-times"></i></a>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div *ngFor="let cart of carts">
+                <div class="toast show " role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div style="background-color: rgb(152, 240, 152);" class="toast-body"
+                        *ngIf=" (cart.stock - cart.quantity)  > 0 ">
+                        <p><strong>Stocks : {{cart.stock - cart.quantity}}</strong> </p>
+                        <p> <b>Disponible:</b> <strong>In Stock </strong> </p>
+                    </div>
+
+                </div>
+
+                <div class="toast show " role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div style="background-color: rgb(250, 73, 73);" class="toast-body"
+                        *ngIf="(cart.stock - cart.quantity)  <= 0 ">
+                        <p> <strong>Stocks : {{cart.stock - cart.quantity}}</strong></p>
+                        <p> <b>Disponible:</b><strong> Stock Vide </strong> </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="total_area">
+                        <ul>
+                            <li>Prix Totale Panier <span> {{total}} TND</span></li>
+
+                        </ul>
+                        <a class="btn btn-default check_out" style="background-color:rgb(250, 148, 52);"
+                            [routerLink]="['/checkout']">Caisser</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/#cart_items-->
+
+    <!-- todo : appelle repeté -->
+
+</div>

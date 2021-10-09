@@ -1,0 +1,173 @@
+<mat-card>
+  <div class="row">
+    <div class="col-md-6" style="	border: 0.5px solid black; ">
+      <mat-card style="background-color: rgb(248, 248, 247);position: relative;">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <a style="border: orangered;">Liste Produits de SCatégorie : <strong>{{scategory.name}} </strong></a>
+          <a class="material-icons" (click)="editSCategory(scategory.id)">
+            <mat-icon> border_color</mat-icon>
+          </a>
+          <a class="material-icons" (click)="deleteSCategory(scategory.id, user.id)">delete_sweep
+          </a>
+
+        </li>
+      </mat-card>
+
+      <mat-card-content>
+        <div class="card mb-3" *ngFor="let pro of products">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="{{pro.url}}" style="width: 150px;">
+              <div class="slide-track" id="slide-wrapper">
+                <div id="similar-product" class="slider" data-ride="carousel">
+                  <!-- Wrapper for slides -->
+                  <div class="slide-track" id="slide-wrapper">
+                    <div class="slide" *ngFor="let col of pro.imagecolor">
+                      <a><img class="thumbnail active " src={{col.url}} style="width: 50px; height: 50px;"></a>
+
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card-body">
+                <ul class="list-group list-group-horizontal">
+                  <a class="material-icons" (click)="editProduct(pro.id)">
+                    <mat-icon> border_color</mat-icon>
+                  </a>
+                  <a class="material-icons" (click)="deleteProduct(pro.id, user.id)"> delete_sweep</a>
+                </ul>
+
+                <h4 class="card-title"><strong>{{pro.name}}</strong>
+                </h4>
+                <br>
+                <h4><small class="text-muted">{{pro.description}}</small>
+                </h4>
+                <div>
+                  <mat-form-field appearance="fill">
+                    <mat-label style="height: 30px;"><strong>Tailles :</strong></mat-label>
+                    <mat-select>
+                      <mat-option *ngFor="let col of pro.tailles">
+                        {{col.name}}
+
+                      </mat-option>
+                      <ul>
+                        <a class="material-icons" (click)="deletetaille(pro.tailles.id, user.id)"> delete_sweep</a>
+
+                      </ul>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field appearance="fill">
+                    <mat-label style="height: 30px;"><strong>Couleurs :</strong></mat-label>
+                    <mat-select>
+                      <mat-option *ngFor="let col of pro.couleurs">
+                        {{col.name}}
+
+                      </mat-option>
+                      <ul>
+                        <a class="material-icons" (click)="deletecouleur(pro.couleurs.id, user.id)"> delete_sweep</a>
+                      
+                      </ul>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+
+                <br><br><br>
+                <ul class="list-group list-group-horizontal">
+                  <li class="btn btn-default add-to-cart" style="background-color: rgb(252, 124, 39);" color="primary"
+                    (click)="addTailles(pro.id)">Ajout Tailles</li>
+                  <li class="btn btn-default add-to-cart" style="background-color: rgb(252, 124, 39);" color="primary"
+                    (click)="addCouleurs(pro.id)">Ajout Couleurs</li>
+
+                  <li class="btn btn-default add-to-cart" style="background-color: rgb(252, 124, 39);" color="primary"
+                    (click)="addImage(pro.id)">Ajout Galerie</li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+          <br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <span class="badge rounded-pill bg-dark"
+                style="cursor: pointer; margin: 10px; color: rgb(135, 139, 143); padding: 5px 10px;"
+                (click)="addTag(pro.id)">
+                Ajouter Tag</span><br>
+
+            </div>
+            <div class="col-md-8">
+              <mat-card style="background-color: rgb(230, 238, 238);">
+
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header (click)="showTags(pro.id) ">
+                      <mat-panel-title>
+                        <strong>Tags </strong>
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        <strong> Pour Les Produits:</strong>
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <mat-chip-list class="example-chip" cdkDrop *ngFor="let tag of tags let i = index;">
+                      <mat-chip class="badge rounded-pill "
+                        style="cursor: pointer;background-color: coral; margin: 10px; color: rgb(29, 31, 32); padding: 5px 10px;"
+                        cdkDrag>
+                        {{tag.name}}
+                        <br>
+
+                      </mat-chip>
+                    </mat-chip-list>
+                  </mat-expansion-panel>
+                </mat-accordion><br>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+
+      </mat-card-content>
+
+
+
+      <!-- Wrapper for slides -->
+
+
+
+
+    </div>
+    <div class="col-lg-6" style="	border: 0.5px solid black; ">
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-card style="background-color: rgb(248, 248, 247);position: relative;">
+            <strong> Les Commentaires Pour Tous Les Produits :</strong>
+          </mat-card>
+
+          <mat-card class="example-card" *ngFor="let comment of comments" style="margin-bottom: 10px;">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-subtitle> Ajouter Par : {{comment.addedBy}}</mat-card-subtitle>
+              <mat-card-subtitle> Date Commentaire :{{comment.addedAt | date: 'yyyy-MM-dd hh:mm:ss'}}
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <strong>Titre :{{comment.title}}</strong>
+              <p style="width: 350px;">Message :{{comment.message}}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button class="btn btn-default add-to-cart" style="background-color: rgb(252, 124, 39);"
+                color="primary" (click)="deleteComment(comment.id)">Supprimer</button>
+
+            </mat-card-actions>
+            <hr>
+          </mat-card>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</mat-card>

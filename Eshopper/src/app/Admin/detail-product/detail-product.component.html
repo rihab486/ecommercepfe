@@ -1,0 +1,220 @@
+<div class="">
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 " *ngFor="let order of productOrders let i = index">
+					<div class="product-details">
+						<!--product-details-->
+						<div class="col-sm-5">
+							<div class="view-product">
+								<div class="slide">
+									<img class="slide" id="featured" type="text" name="url" src={{order.product.url}} />
+									<h3>ZOOM</h3>
+								</div>
+							</div>
+							<div id="similar-product" class="slider" data-ride="carousel">
+								
+							<div class="slide-track" id="slide-wrapper">
+								<div class="slide" *ngFor="let gal of galery ;let i = index">
+									<a><img class="thumbnail " src={{gal.url}} style="width: 100px; height: 100px;"></a>
+								</div>
+							</div>
+							
+							</div>
+
+						</div>
+						<div class="col-sm-7" style="	border: 0.5px solid black;  ">
+							<div class="product-information">
+								<!--/product-information-->
+
+								<h2>{{order.product.name}}</h2>
+								<span>
+									<span> {{order.product.price}}dt</span><br>
+									<img src="assets/images/product-details/rating.png" />
+									<h6 style="color: green;">lire les avis (10)</h6>
+								</span>
+								<p>{{order.product.description}}</p>
+								<span>
+
+									<div class="row" *ngIf="isLoggedIn">
+										<label>Quantitie Choisie:</label>
+										<input type="number" min="0" max="#value" [(ngModel)]="order.quantity"
+											[value]="order.quantity" />
+
+										<div *ngFor="let role of currentUser.roles">
+											<div *ngIf=" currentUser.roles.role === ! ROLE_ADMIN">
+												<button [disabled]=" order.quantity <= 0 ">
+													<i class="fa fa-shopping-cart"></i>
+													Ajouter Au Panier
+												</button>
+
+											</div>
+											<div *ngIf=" currentUser.roles.role === ROLE_CLIENT">
+												<button type="submit" style="background-color: rgb(252, 124, 39);"
+													(click)="addToCart(order,currentUser.id)"
+													class="btn btn-fefault cart"
+													[disabled]="order.quantity <= 0 ||order.product.quantities <=  order.quantity ">
+													<i class="fa fa-shopping-cart"></i>
+													Ajouter Au Panier
+												</button>
+											</div>
+
+										</div>
+									</div>
+
+									<div *ngIf="!isLoggedIn">
+										<p>
+											<button [swal]="['Vers LOGIN!', 'Connectez Vous Pour ajouter au Panier']"
+												class="btn btn-link" (click)="login()">Connexion</button>
+										</p>
+										<div></div>
+
+
+									</div>
+								</span>
+								<br>
+
+								<div>
+									<mat-form-field appearance="fill">
+										<mat-label style="height: 30px;"><strong> Taille :</strong></mat-label>
+										<div style="background-color: rgb(217, 241, 217);" class="toast-body">
+
+											<mat-select (selectionChange)="selectedValue($event,order)">
+												<mat-option *ngFor="let tai of tailles" [value]="tai.name">
+													{{tai.name}}
+												</mat-option>
+											</mat-select>
+										</div>
+									</mat-form-field>
+								</div>
+							<div>
+									<mat-form-field appearance="fill">
+										<mat-label style="height: 30px;"><strong> Couleur :</strong></mat-label>
+										<div style="background-color: rgb(217, 241, 217);" class="toast-body">
+
+											<mat-select (selectionChange)="selectedValueC($event,order)">
+												<mat-option *ngFor="let tai of couleurs" [value]="tai.name">
+													{{tai.name}}
+												</mat-option>
+											</mat-select>
+										</div>
+									</mat-form-field>
+								</div>
+								<!--
+							  <input type="color"  value="{{order.product.couleur}}"  [style.background]="order.couleur" style="width: 30px; height: 30px;">
+                                  <input type="text"  [(colorPicker)]="order.couleur" [style.background]="order.couleur">
+										<tr><td>Couleur</td><td></td></tr>
+									-->
+								<div class="form-group">
+
+
+									
+								</div>
+								<p><b>Marque</b>: {{order.product.marque}}</p>
+								<a href=""><img src="assets/images/product-details/share.png"
+										class="share img-responsive" /></a>
+
+								<!-- <div class="toast show "  *ngFor="let col of order.product.imagecolor let i = index"  role="alert" aria-live="assertive" aria-atomic="true">
+								<div class="toast-header">
+								  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+								</div>
+								<div style="background-color: rgb(188, 241, 188);" class="toast-body"  *ngIf="order.product.verif === true && (col.quantityc - order.quantity)  > 0 ">
+									<p ><strong>Stocks Couleur Image : {{col.quantityc- order.quantity}}</strong> </p>
+									<p>	<b>Disponible:</b>  <strong>In Stock </strong> </p>
+								 </div>
+								</div>
+										<div class="toast show " *ngFor="let col of order.product.imagecolor let i = index" role="alert" aria-live="assertive"
+											aria-atomic="true">
+										
+											<div class="toast-header">
+												<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+											</div>
+											<div style="background-color: rgb(250, 73, 73);" class="toast-body"
+												*ngIf="order.product.verif === true && (col.quantityc - order.quantity)  <= 0 ">
+												<p> <strong>Stocks Couleur Image : {{col.quantityc - order.quantity}}</strong></p>
+												<p> <b>Disponible:</b><strong> Not In Stock </strong> </p>
+											</div>
+										</div>
+							-->
+								<!--show alerte msg-->
+
+								<div class="toast show " role="alert" aria-live="assertive" aria-atomic="true">
+									<div class="toast-header">
+										<button type="button" class="btn-close" data-bs-dismiss="toast"
+											aria-label="Close"></button>
+									</div>
+									<div style="background-color: rgb(152, 240, 152);" class="toast-body"
+										*ngIf=" (order.product.quantities - order.quantity)  > 0 ">
+										<p><strong>Stocks : {{order.product.quantities - order.quantity}}</strong> </p>
+										<p> <b>Disponible:</b> <strong>In Stock </strong> </p>
+									</div>
+
+								</div>
+
+								<div class="toast show " role="alert" aria-live="assertive" aria-atomic="true">
+									<div class="toast-header">
+										<button type="button" class="btn-close" data-bs-dismiss="toast"
+											aria-label="Close"></button>
+									</div>
+									<div style="background-color: rgb(250, 73, 73);" class="toast-body"
+										*ngIf="(order.product.quantities - order.quantity)  <= 0 ">
+										<p> <strong>Stocks : {{order.product.quantities - order.quantity}}</strong></p>
+										<p> <b>Disponible:</b><strong> Not In Stock </strong> </p>
+									</div>
+								</div>
+
+
+
+							</div>
+						</div>
+					</div>
+
+					<div class="category-tab shop-details-tab">
+						<div class="col-sm-12">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#reviews" data-toggle="tab">Commentaires (5)</a></li>
+							</ul>
+						</div>
+						<div class="tab-content">
+
+
+							<div class="tab-pane fade active in" id="reviews">
+								<div class="col-sm-12">
+									<div class="col-3" *ngFor="let item of comments">
+										<ul>
+											<li><a href=""><i class="fa fa-user"></i> {{item.addedBy}}</a></li>
+											<li><a href=""><i class="fa fa-clock-o"></i>{{item.addedAt |date:
+													'yyyy-MM-dd hh:mm:ss' }}</a></li>
+										</ul>
+										<p><b>Titre *:</b> {{item.title }}</p>
+										<p> <b>Avis Client*:</b>{{item.message }} </p>
+										<p><b></b></p>
+
+									</div><br><br>
+
+									<form *ngIf="currentUser">
+										<span>
+											<input type="text" placeholder="Titre de commentaire" name="title"
+												[(ngModel)]="comment.title" />
+										</span>
+										<textarea placeholder="Passer Votre Avis Cher Client" name="message"
+											[(ngModel)]="comment.message"></textarea>
+										<b>Évaluation : </b> <img src="assets/images/product-details/rating.png"
+											alt="" />
+										<div *ngIf="isLoggedIn">
+											<button type="button" (click)="addComment(idProduct, currentUser.username)"
+												class="btn btn-default pull-right">
+												Ajouter
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

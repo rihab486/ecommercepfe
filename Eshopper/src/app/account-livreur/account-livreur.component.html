@@ -1,0 +1,134 @@
+<div class="info">
+  <section>
+    <div class="sidebar">
+      <div class="container">
+        <div class="row">
+          <div class="form-group col-md-3" style="background-color: #f08e32f8;;">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+              <div class="image">
+                <img src="assets/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+              </div>
+              <div class="info" *ngIf="currentUser;" style="color: black;">
+                <a class="d-block"> <strong>Profile :</strong> :{{ currentUser.username }}</a>
+
+                <br>
+                <p>
+                  <strong>Email:</strong>
+                  {{ currentUser.email }}
+                </p>
+                <p>
+                  <strong>Token:</strong>
+                  {{ currentUser.accessToken.substring(0, 20) }} ...
+                  {{ currentUser.accessToken.substr(currentUser.accessToken.length - 20) }}
+                </p>
+                <strong>Roles:</strong>
+                <ul>
+                  <li *ngFor="let role of currentUser.roles">
+                    {{ role }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <br><br>
+            <a style="color: rgb(15, 15, 19);" mat-button type="button" class="nav-link"
+              (click)="logout()">Déconnexion</a>
+
+          </div>
+
+          <div class="col-lg-9">
+            <div class="card" *ngIf="cartLength>=1" style="margin-top: 30px;">
+              <div class="card-body">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <strong>Les Achats :</strong>
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        Liste Produits Enregistrés
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <table class="table">
+                      <thead>
+                        <tr style="background-color: #dddfe0b2;">
+                          <th scope="col">Ajouter Par</th>
+                          <th scope="col">Produit</th>
+                          <th scope="col">Nom</th>
+                          <th scope="col">Prix</th>
+                          <th scope="col">Quantitie</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let cart of carts ">
+                          <td>{{cart.addedby}}</td>
+                          <th scope="row"><img src="{{cart.url}}" class="img-thumbnail" style="width: 100px;"></th>
+                          <td>{{cart.name}}</td>
+                          <td>{{cart.price}}</td>
+                          <td>{{cart.quantity}}</td>
+                          <td><span class="material-icons" (click)="deleteCart(cart.id, currentUser.id)"
+                              style="cursor: pointer; color: #e15f41;">delete_forever</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+            <router-outlet></router-outlet>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="card" *ngIf="cartLength>=1" style="margin-top: 30px;">
+              <div class="card-body">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <strong>Reclamations :</strong>
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        Liste Reclamation Enregistrés
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                        <tr style="background-color: #dddfe0b2;">
+                          <th scope="col">Ajouter Par</th>
+                          <th scope="col">Nom</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">Message</th>
+                          <th scope="col">Action</th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let recl of reclamations ">
+                          <td>{{recl.addedby}}</td>
+                          <td>{{recl.name}}</td>
+                          <td>{{recl.dater | date: 'yyyy-MM-dd hh:mm:ss'}}</td>
+                          <td>{{recl.message}}</td>
+                          <td>
+                            <a mat-button type="button" style="color: red;" class="nav-link"
+                              (click)="addRecl(recl.id)">Réponse</a>
+                          </td>
+                          <td><span class="material-icons" (click)="deleteRecl(recl.id, currentUser.id)"
+                              style="cursor: pointer; color: #e15f41;">delete_forever</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</div>

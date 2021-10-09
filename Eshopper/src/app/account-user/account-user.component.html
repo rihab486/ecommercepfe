@@ -1,0 +1,163 @@
+<div class="info">
+  <section>
+    <div class="sidebar">
+      <div class="container">
+        <div class="row">
+          <div class="form-group col-md-3" style="background-color:#8089bb96;">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+              <div class="image">
+                <img src="assets/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+              </div>
+              <div class="info" *ngIf="currentUser;" style="color: black;">
+                <a class="d-block"> <strong>PROFILE:</strong> :{{ currentUser.username }}</a>
+
+                <br>
+                <p>
+                  <strong>EMAIL:</strong>
+                  {{ currentUser.email }}
+                </p>
+
+                <strong>ROLES:</strong>
+                <ul>
+                  <li *ngFor="let role of currentUser.roles">
+                    {{ role }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <a style="color: blue;" mat-button type="button" class="nav-link"
+              [routerLink]="['/contact',currentUser.id]">Contactez-Nous</a>
+            <br>
+            <a style="color: blue;" mat-button type="button" class="nav-link" (click)="logout()">Déconnexion</a>
+
+          </div>
+
+          <div class="col-lg-8">
+            <div class="card" *ngIf="cartLength>=1" style="margin-top: 30px;">
+              <div class="card-body">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <strong> Produits :</strong>
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        Liste des Commandes
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <table class="table">
+                      <thead>
+                        <tr style="background-color: #f5f0ed;">
+                          <th scope="col">Produit</th>
+                          <th scope="col">Nom</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">Prix</th>
+                          <th scope="col">Quantitie</th>
+                          <th scope="col">Supprimer</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let cart of carts ">
+                          <th scope="row"><img src="{{cart.url}}" class="img-thumbnail" style="width: 100px;"></th>
+                          <td>{{cart.name}}</td>
+                          <td>{{cart.datecmd | date: 'yyyy-MM-dd hh:mm:ss'}}</td>
+                          <td>{{cart.price}}</td>
+                          <td>{{cart.quantity}}</td>
+                          <td><span class="material-icons" (click)="deleteCart(cart.id, currentUser.id)"
+                              style="cursor: pointer; color: #e15f41;">delete_forever</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+            <router-outlet></router-outlet>
+          </div>
+
+          <div class="col-lg-10">
+            <div class="card" style="margin-top: 30px;">
+              <div class="card-body">
+                <mat-accordion>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <strong>Reclamations :</strong>
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        Liste Reclamation Enregistrés
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                        <tr style="background-color: #f5f0ed;">
+                          <th scope="col">Ajouter Par</th>
+                          <th scope="col">Nom</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">adresse</th>
+                          <th scope="col">Téléphone</th>
+                          <th scope="col">Message</th>
+                          <th scope="col">Action</th>
+
+                        </tr>
+
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let recl of reclamation ">
+                          <td>{{recl.addedby}}</td>
+                          <td>{{recl.name}}</td>
+                          <td>{{recl.dater | date: 'yyyy-MM-dd hh:mm:ss'}}</td>
+                          <td> {{users.adresse}}</td>
+                          <td> {{users.phone}}</td>
+                          <td>{{recl.message}}</td>
+                          <td><span class="material-icons" (click)="deleteRecl(recl.id, currentUser.id)"
+                              style="cursor: pointer; color: #e15f41;">delete_forever</span></td>
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+              <div class="card-body">
+                <mat-accordion>
+                  <mat-expansion-panel>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                        <tr style="background-color: #f5f0ed">
+                          <th scope="col">Repond Par</th>
+                          <th scope="col">Nom</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">Message</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let reply of replyreclamation ">
+                          <td>{{reply.addedby}}</td>
+                          <td>{{reply.name}}</td>
+                          <td>{{reply.dater | date: 'yyyy-MM-dd hh:mm:ss'}}</td>
+                          <td>{{reply.replaymessage}}</td>
+                          <td><span class="material-icons" (click)="deleteRecl(reply.id, currentUser.id)"
+                              style="cursor: pointer; color: #e15f41;">delete_forever</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+
+            </div>
+
+            <router-outlet></router-outlet>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,41 @@
+<div class="info">
+    <section>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-9">
+                    <div class="blog-post-area">
+                        <h2 class="title text-center">PREMIERS PRODUITS DE NOTRE BLOG</h2>
+                        <div class="single-blog-post" *ngFor="let order of productOrders;">
+                            <h3>{{order.product.name}}</h3>
+                            <div class="post-meta">
+                                <ul>
+                                    <li><i class="fa fa-clock-o"></i> {{order.product.datecmd |date: 'hh:mm:ss'}}</li>
+                                    <li><i class="fa fa-calendar"></i> {{order.product.datecmd |date: 'yyyy-MM-dd'}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <a>
+                                <img src="{{order.product.url}}" alt="">
+                            </a>
+
+                            <p> {{order.product.description}} <br>
+                            </p>
+                            <a class="btn btn-primary" (click)="sngleProduct(order.product.id)">Lire Plus</a>
+                        </div>
+
+                        <div class="pagination-area">
+                            <ul class="pagination">
+                                <li><a href="" class="active">1</a></li>
+                                <li><a href="">2</a></li>
+                                <li><a href="">3</a></li>
+                                <li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>

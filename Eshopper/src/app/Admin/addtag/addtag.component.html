@@ -1,0 +1,21 @@
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"><strong>Ajouter Tag</strong></h5>
+      <mat-progress-bar mode="buffer" *ngIf="progressBar"></mat-progress-bar>
+      <form [formGroup]="myForm"  name="category" (ngSubmit)="addTag()">
+  
+        <div class="form-group col">
+          <input type="text" placeholder="Name" class="form-control" name="name" [(ngModel)]="tag.name" formControlName="name">
+          <div *ngIf="myForm.controls['name'].invalid &&  myForm.controls['name'].touched " class="alert">
+            <small class="text-danger" *ngIf="myForm.controls['name'].errors?.required" >nom est requise</small><br>
+         </div>
+        </div>
+
+        <div class="form-group col">
+          <button type="submit" style="color: rgb(7, 7, 7); background-color: rgb(238, 143, 20);" [disabled]="myForm.invalid"  class="btn btn-primary">Enregistrer</button>
+            </div>
+
+      </form>
+    </div>
+  </div>
+  

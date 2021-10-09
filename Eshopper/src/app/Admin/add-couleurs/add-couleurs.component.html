@@ -1,0 +1,22 @@
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title"><strong>Ajouter Couleur</strong></h5>
+        <mat-progress-bar mode="buffer" *ngIf="progressBar"></mat-progress-bar>
+        <form [formGroup]="myForm" (ngSubmit)="addcouleur()">
+
+            <div class="form-group col">
+                <input type="text" placeholder="Name" class="form-control" name="name" [(ngModel)]="couleur.name"
+                    formControlName="name">
+                <div *ngIf="myForm.controls['name'].invalid &&  myForm.controls['name'].touched " class="alert">
+                    <small class="text-danger" *ngIf="myForm.controls['name'].errors?.required">nom est
+                        requise</small><br>
+                </div>
+            </div>
+
+            <div class="form-group col">
+                <button  style="color: rgb(7, 7, 7); background-color: #ffb26b;" type="submit" [disabled]="myForm.invalid" class="btn btn-primary">Enregistrer</button>
+            </div>
+
+        </form>
+    </div>
+</div>
